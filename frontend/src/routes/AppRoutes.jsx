@@ -12,6 +12,8 @@ import CreateReport from "../pages/member/CreateReport";
 import EditReport from "../pages/member/EditReport";
 
 import ManagerDashboard from "../pages/manager/ManagerDashboard";
+import ViewReport from "../pages/manager/ViewReport";
+import Projects from "../pages/manager/Projects";
 import ProtectedRoute from "./ProtectedRoute";
 
 
@@ -38,7 +40,10 @@ function AppRoutes() {
       {/* Manager Routes */}
       <Route path="/manager" element={<ProtectedRoute role = "MANAGER"><ManagerLayout/></ProtectedRoute>}>
         <Route index element={<ManagerDashboard />} />
+        <Route path="reports/:id"element={<ViewReport />}/>
+        <Route path="projects"element={<Projects />}/>
       </Route>
+      
 
 
       {/* Fallback */}

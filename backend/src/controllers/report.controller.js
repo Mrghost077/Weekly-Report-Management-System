@@ -1,4 +1,4 @@
-import { createReport, getMyReports, updateReport, submitReport, getAllReports} from "../services/report.service.js";
+import { createReport, getMyReports, updateReport, submitReport, getAllReports, lockReport} from "../services/report.service.js";
 
 
 export const create = async (req, res) => {
@@ -78,6 +78,25 @@ export const submit = async (req, res) => {
 
         res.status(200).json({
             message: "Report submitted successfully",
+            report,
+        });
+
+    } catch (error) {
+
+        res.status(error.statusCode || 500).json({
+            message: error.message,
+        });
+
+    }
+};
+
+export const lock = async (req, res) => {
+    try {
+
+        const report = await lockReport(req.params.id);
+
+        res.status(200).json({
+            message: "Report locked successfully",
             report,
         });
 

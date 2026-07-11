@@ -1,6 +1,6 @@
 import express from "express";
 
-import { create, getMine, update, submit, getAll} from "../controllers/report.controller.js";
+import { create, getMine, update, submit, getAll, lock} from "../controllers/report.controller.js";
 
 import authMiddleware from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
@@ -33,6 +33,13 @@ router.patch(
     "/:id/submit",
     authMiddleware,
     submit
+);
+
+router.patch(
+    "/:id/lock",
+    authMiddleware,
+    roleMiddleware("MANAGER"),
+    lock
 );
 
 router.get(

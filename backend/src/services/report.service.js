@@ -182,3 +182,43 @@ export const submitReport = async (reportId, userId) => {
 
     return updatedReport;
 };
+
+export const lockReport = async (reportId) => {
+
+    const report = await prisma.report.findUnique({
+        where: {
+            id: Number(reportId),
+        },
+    });
+
+    if (!report) {
+        const error = new Error("Report not found.");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    if (report.submissionStatus === "LOCKED") {
+        const error = new Error("Report already locked.");
+        error.statusCode = 400;
+        throw error;
+    }
+
+    if (report.submissionStatus !== "SUBMITTED") {
+        const error = new Error(
+            "Only submitted reports can be locked."
+        );
+        error.statusCode = 400;
+        throw error;
+    }
+
+    return await prisma.report.update({
+        where: {
+            id: Number(reportId),
+        },
+        data: {
+            submissionStatus: "LOCKED",
+        },
+    });
+
+};
+
