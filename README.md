@@ -1,4 +1,4 @@
-# Weekly Report Generator & Team Dashboard
+# Weekly Report Generator
 
 A full-stack web application that enables team members to submit structured weekly work reports and allows managers to monitor, review, and analyze team activity through a centralized dashboard.
 
